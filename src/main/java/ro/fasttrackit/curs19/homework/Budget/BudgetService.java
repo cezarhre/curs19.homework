@@ -79,4 +79,26 @@ public class BudgetService {
         return transactions.stream()
                 .collect(Collectors.groupingBy(BudgetModel::product));
     }
+
+    public Map<TransactionType, Double> sumByType(TransactionType type){
+        Map<TransactionType, Double> result = new HashMap<>();
+        for(BudgetModel tran : transactions){
+            if(tran.type().equals(type)){
+                Double count = result.get(tran.type());
+                result.put(tran.type(),count == null ? tran.amount() : count + tran.amount());
+            }
+        }
+        return result;
+    }
+
+    public Map<String, Double> sumByProduct(String product){
+        Map<String, Double> result = new HashMap<>();
+        for(BudgetModel tran : transactions){
+            if(tran.product().equalsIgnoreCase(product)){
+                Double count = result.get(tran.product());
+                result.put(tran.product(),count == null ? tran.amount() : count + tran.amount());
+            }
+        }
+        return result;
+    }
 }
