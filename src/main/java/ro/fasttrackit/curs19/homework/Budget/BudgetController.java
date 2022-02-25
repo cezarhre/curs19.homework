@@ -31,12 +31,12 @@ public class BudgetController {
         return budgetService.byId(id);
     }
 
-    @GetMapping("/reports/product")
+    @GetMapping("/product")
     Map<String,List<BudgetModel>> groupByProduct() {
         return budgetService.groupByProduct();
     }
 
-    @GetMapping("/reports/type")
+    @GetMapping("/type")
     Map<TransactionType,List<BudgetModel>> groupByType() {
         return budgetService.groupByType();
     }
