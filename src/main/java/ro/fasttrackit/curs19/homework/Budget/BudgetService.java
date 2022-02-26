@@ -15,13 +15,13 @@ public class BudgetService {
         this.transactions = new ArrayList<>(budgetTransactions.getTransactions());
     }
 
-    public List<BudgetModel> getAll(int id, String product, TransactionType type, double minAmount, double maxAmount) {
+    public List<BudgetModel> getAll(int id, String product, TransactionType type, Double minAmount, Double maxAmount) {
         return transactions.stream()
                 .filter(prod -> id == 0 || prod.id() == id)
                 .filter(prod -> product == null || prod.product().equalsIgnoreCase(product))
                 .filter(prod -> type == null || prod.type().equals(type))
-                .filter(prod -> minAmount == 0 || prod.amount() > minAmount)
-                .filter(prod -> maxAmount == 0 || prod.amount() < maxAmount)
+                .filter(prod -> minAmount == null || prod.amount() > minAmount)
+                .filter(prod -> maxAmount == null || prod.amount() < maxAmount)
                 .collect(toList());
     }
 
