@@ -80,6 +80,24 @@ public class BudgetService {
                 .collect(Collectors.groupingBy(BudgetModel::product));
     }
 
+    public Map<String, List<BudgetModel>> groupProduct(){
+        Map<String, List<BudgetModel>> result = new HashMap<>();
+        for (BudgetModel tran : transactions) {
+            List<BudgetModel> productList = result.computeIfAbsent(tran.product(), k -> new ArrayList<>());
+            productList.add(tran);
+        }
+        return result;
+    }
+
+    public Map<TransactionType, List<BudgetModel>> groupType(){
+        Map<TransactionType, List<BudgetModel>> result = new HashMap<>();
+        for(BudgetModel tran :transactions){
+            List<BudgetModel> typeList = result.computeIfAbsent(tran.type(), k -> new ArrayList<>());
+            typeList.add(tran);
+        }
+        return result;
+    }
+
     public Map<TransactionType, Double> sumByType(TransactionType type){
         Map<TransactionType, Double> result = new HashMap<>();
         for(BudgetModel tran : transactions){
@@ -91,10 +109,10 @@ public class BudgetService {
         return result;
     }
 
-    public Map<String, Double> sumByProduct(String product){
+    public Map<String, Double> sumByProduct(String produs){
         Map<String, Double> result = new HashMap<>();
         for(BudgetModel tran : transactions){
-            if(tran.product().equalsIgnoreCase(product)){
+            if(tran.product().equalsIgnoreCase(produs)){
                 Double count = result.get(tran.product());
                 result.put(tran.product(),count == null ? tran.amount() : count + tran.amount());
             }

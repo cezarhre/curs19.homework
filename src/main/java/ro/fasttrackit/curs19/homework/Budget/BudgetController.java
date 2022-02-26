@@ -41,6 +41,16 @@ public class BudgetController {
         return budgetService.groupByType();
     }
 
+    @GetMapping("reports/produs")
+    Map<String, Double> sumByProduct(@PathVariable String product){
+        return budgetService.sumByProduct(product);
+    }
+
+    @GetMapping("reports/tip")
+    Map<TransactionType, Double> sumByType(@PathVariable TransactionType type){
+        return budgetService.sumByType(type);
+    }
+
     @PostMapping
     BudgetModel addTransaction(@RequestBody BudgetModel budgetModel){
         return budgetService.add(budgetModel);
