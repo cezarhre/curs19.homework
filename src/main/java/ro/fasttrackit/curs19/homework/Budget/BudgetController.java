@@ -20,8 +20,8 @@ public class BudgetController {
             @RequestParam(defaultValue = "0") int id,
             @RequestParam(required = false) String product,
             @RequestParam(required = false) TransactionType type,
-            @RequestParam(defaultValue = "0") double minAmount,
-            @RequestParam(defaultValue = "0") double maxAmount
+            @RequestParam(defaultValue = "0") Double minAmount,
+            @RequestParam(defaultValue = "0") Double maxAmount
     ){
         return budgetService.getAll(id, product, type, minAmount, maxAmount);
     }
@@ -41,12 +41,12 @@ public class BudgetController {
         return budgetService.groupByType();
     }
 
-    @GetMapping("reports/produs")
+    @GetMapping("reports/product")
     Map<String, Double> sumByProduct(@PathVariable String product){
         return budgetService.sumByProduct(product);
     }
 
-    @GetMapping("reports/tip")
+    @GetMapping("reports/type")
     Map<TransactionType, Double> sumByType(@PathVariable TransactionType type){
         return budgetService.sumByType(type);
     }
