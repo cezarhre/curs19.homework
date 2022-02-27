@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("transactions")
+@RequestMapping("/transactions")
 public class BudgetController {
 
     private final BudgetService budgetService;
@@ -41,14 +41,14 @@ public class BudgetController {
         return budgetService.groupByType();
     }
 
-    @GetMapping("reports/product")
-    Map<String, Double> sumByProduct(@PathVariable String product){
-        return budgetService.sumByProduct(product);
+    @GetMapping(value = "/reports", params = "products")
+    Map<String, Double> sumByProduct(@RequestParam String products){
+        return budgetService.sumByProduct(products);
     }
 
-    @GetMapping("reports/type")
-    Map<TransactionType, Double> sumByType(@PathVariable TransactionType type){
-        return budgetService.sumByType(type);
+    @GetMapping(value = "/reports", params = "typ")
+    Map<TransactionType, Double> sumByType(@RequestParam TransactionType typ){
+        return budgetService.sumByType(typ);
     }
 
     @PostMapping
